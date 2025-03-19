@@ -27,6 +27,6 @@ public class InputManager
                     MouseAction.Invoke(Define.MouseEvent.Click);
                 _pressed = false;
             }
-        }
+        } 
     }
 }
