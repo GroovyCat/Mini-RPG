@@ -95,9 +95,15 @@ public class UIManager
         ClosePopupUI();
     }
 
-    public void ClosePopupUIAll()
+    public void CloseAllPopupUI()
     {
         while (_popupStack.Count > 0)
             ClosePopupUI();
+    }
+
+    public void Clear()
+    {
+        CloseAllPopupUI();
+        _sceneUI = null;
     }
 }
