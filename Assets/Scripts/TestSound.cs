@@ -17,15 +17,16 @@ public class TestSound : MonoBehaviour
     }
 
     public AudioClip audioClip;
-
+    public AudioClip audioClip2;
+    
     int i = 0;
     private void OnTriggerEnter(Collider other)
     {
         i++;
 
         if (i % 2 == 0)
-            Managers.Sound.Play("UnityChan/univ0001", Define.Sound.Effect);
+            Managers.Sound.Play(audioClip, Define.Sound.Effect);
         else
-            Managers.Sound.Play("UnityChan/univ0002", Define.Sound.Effect);
+            Managers.Sound.Play(audioClip2, Define.Sound.Effect);
     }
 }

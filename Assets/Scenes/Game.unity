@@ -615,6 +615,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioClip: {fileID: 8300000, guid: eed2451bbd4264da8b6c27c92df62faf, type: 3}
+  audioClip2: {fileID: 8300000, guid: 6ccbc3d284bd849d49fb1f8f94ab2888, type: 3}
 --- !u!1 &1707508444
 GameObject:
   m_ObjectHideFlags: 0
@@ -722,13 +723,24 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3632063808712646201, guid: 92c2894c352b92843a294b9a5de52306, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1745152664}
   m_SourcePrefab: {fileID: 100100000, guid: 92c2894c352b92843a294b9a5de52306, type: 3}
 --- !u!1 &1745152658 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3632063808712646201, guid: 92c2894c352b92843a294b9a5de52306, type: 3}
   m_PrefabInstance: {fileID: 1745152657}
   m_PrefabAsset: {fileID: 0}
+--- !u!81 &1745152664
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1745152658}
+  m_Enabled: 1
 --- !u!1 &1857662308
 GameObject:
   m_ObjectHideFlags: 0
@@ -951,6 +963,10 @@ PrefabInstance:
       propertyPath: _player
       value: 
       objectReference: {fileID: 1745152658}
+    - target: {fileID: 4173955101092370447, guid: ac49171e1c758ca46bbd94b780f37f4e, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4252397108425477891, guid: ac49171e1c758ca46bbd94b780f37f4e, type: 3}
       propertyPath: m_Name
       value: Main Camera
