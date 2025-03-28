@@ -19,6 +19,12 @@ public class LoginScene : BaseScene
         base.Init();
 
         SceneType = Define.Scene.Login;
+
+        List<GameObject> list = new List<GameObject>();
+        for (int i = 0; i < 5; i++)
+        {
+            list.Add(Managers.Resource.Instantiate("UnityChan"));
+        }
     }
 
     public override void Clear()
