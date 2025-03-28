@@ -25,6 +25,11 @@ public class LoginScene : BaseScene
         {
             list.Add(Managers.Resource.Instantiate("UnityChan"));
         }
+
+        foreach (GameObject go in list)
+        {
+            Managers.Resource.Destroy(go);
+        }
     }
 
     public override void Clear()
