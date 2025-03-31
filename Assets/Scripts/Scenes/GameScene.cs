@@ -11,10 +11,14 @@ public class GameScene : BaseScene
         SceneType = Define.Scene.Game;
         Managers.UI.ShowSceneUI<UIInventory>();
 
-        for (int i = 0; i < 5; i++)
-        {
-            Managers.Resource.Instantiate("UnityChan");
-        }
+        StartCoroutine("ExplodeAfterSeconds", 4.0f);
+    }
+
+    IEnumerator ExplodeAfterSeconds(float second)
+    {
+        Debug.Log("Explode Enter");
+        yield return new WaitForSeconds(second);
+        Debug.Log("Explode Execute!!!");
     }
 
     public override void Clear()
