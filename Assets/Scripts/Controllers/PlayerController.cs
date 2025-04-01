@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     float _speed = 20.0f;
 
     Vector3 _destPos; // µµÂøÁöÁ¡
-
+    Animator anim;
     public enum PlayerState
     {
         Ready,
@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        anim = GetComponentInChildren<Animator>();
         Managers.Input.KeyAction -= OnKeyBoard;
         Managers.Input.KeyAction += OnKeyBoard;
         Managers.Input.MouseAction -= OnMouseClicked;
@@ -91,10 +92,7 @@ public class PlayerController : MonoBehaviour
     }
     void UpdateIdle()
     {
-        if (TryGetComponent(out Animator anim))
-        {
-            anim.SetFloat("speed", 0);
-        }
+        anim.SetFloat("speed", 0.0f);
     }
 
     void UpdateMoving()
@@ -111,9 +109,6 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), 20 * Time.deltaTime);
         }
 
-        if (TryGetComponent(out Animator anim))
-        {
-            anim.SetFloat("speed", _speed);
-        }
+        anim.SetFloat("speed", 1.0f);
     }
 }
