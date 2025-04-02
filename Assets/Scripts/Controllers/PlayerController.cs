@@ -1,26 +1,32 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.AI;
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField]
-    float _speed = 20.0f;
-
-    Vector3 _destPos; // 도착지점
-    Animator anim;
     public enum PlayerState
     {
         Ready,
         Idle,
         Moving,
+        Skill,
     }
-
     PlayerState _state = PlayerState.Idle;
+
+    Vector3 _destPos; // 도착지점
+    PlayerStat _pStat;
+    Animator anim;
+    NavMeshAgent nav;
+
+    int _clickMask = (1 << (int)Define.Layer.Ground) | (1 << (int)Define.Layer.Moster);
 
     private void Start()
     {
-        anim = GetComponentInChildren<Animator>();
+        anim = GetComponent<Animator>();
+        nav = GetComponent<NavMeshAgent>();
+        _pStat = gameObject.GetOrAddComponent<PlayerStat>();
+
         Managers.Input.KeyAction -= OnKeyBoard;
         Managers.Input.KeyAction += OnKeyBoard;
         Managers.Input.MouseAction -= OnMouseClicked;
@@ -40,6 +46,9 @@ public class PlayerController : MonoBehaviour
             case PlayerState.Moving:
                 UpdateMoving();
                 break;
+            case PlayerState.Skill:
+                UpdateSkill();
+                break;
             default:
                 break;
         }
@@ -50,22 +59,22 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.W))
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.forward), 0.2f);
-            transform.position += Vector3.forward * _speed * Time.deltaTime;
+            transform.position += Vector3.forward * _pStat.MoveSpeed * Time.deltaTime;
         }
         else if (Input.GetKey(KeyCode.S))
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.back), 0.2f);
-            transform.position += Vector3.back * _speed * Time.deltaTime;
+            transform.position += Vector3.back * _pStat.MoveSpeed * Time.deltaTime;
         }
         else if (Input.GetKey(KeyCode.A))
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.left), 0.2f);
-            transform.position += Vector3.left * _speed * Time.deltaTime;
+            transform.position += Vector3.left * _pStat.MoveSpeed * Time.deltaTime;
         }
         else if (Input.GetKey(KeyCode.D))
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.right), 0.2f);
-            transform.position += Vector3.right * _speed * Time.deltaTime;
+            transform.position += Vector3.right * _pStat.MoveSpeed * Time.deltaTime;
         }
         _state = PlayerState.Idle;
     }
@@ -76,13 +85,21 @@ public class PlayerController : MonoBehaviour
             return;
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        LayerMask mask = LayerMask.GetMask("Ground");
 
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, 100.0f, mask))
+        if (Physics.Raycast(ray, out hit, 100.0f, _clickMask))
         {
             _destPos = hit.point; // 마우스로 찍은 좌표가 도착지점
             _state = PlayerState.Moving;
+
+            if (hit.collider.gameObject.layer == (int)Define.Layer.Moster)
+            {
+                Debug.Log("Monster Click");
+            }
+            else
+            {
+                Debug.Log("Ground Click");
+            }
         }
     }
 
@@ -97,18 +114,28 @@ public class PlayerController : MonoBehaviour
 
     void UpdateMoving()
     {
-        Vector3 dir = _destPos - transform.position; // 도착지점으로부터의 거리(위치 벡터) 값
-        if (dir.magnitude < 0.0001f) // 벡터의 길이가 0.0001보다 작다면
-        {
-            _state = PlayerState.Idle; // 해당 벡터 길이 만큼 이동하지 않는 걸로 간주
-        }
-        else
-        {
-            float moveDist = Mathf.Clamp(_speed * Time.deltaTime, 0, dir.magnitude);
-            transform.position += dir.normalized * moveDist; // 정규 위치 벡터 거리 만큼 이동
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), 20 * Time.deltaTime);
-        }
+        Vector3 dir = _destPos - transform.position;
 
-        anim.SetFloat("speed", 1.0f);
+        nav.destination = _destPos;
+        anim.SetFloat("speed", _pStat.MoveSpeed);
+
+        if (nav.destination == transform.position)
+        {
+            _state = PlayerState.Idle;
+            nav.isStopped = true; // 멈추는 기능
+            nav.ResetPath(); // 경로 리셋
+        }
+        if (Physics.Raycast(transform.position, dir, 1.0f, LayerMask.GetMask("Block")))
+        {
+            _state = PlayerState.Idle;
+            nav.isStopped = true; // 멈추는 기능
+            nav.ResetPath(); // 경로 리셋
+            return;
+        }
+    }
+
+    void UpdateSkill()
+    {
+
     }
 }
