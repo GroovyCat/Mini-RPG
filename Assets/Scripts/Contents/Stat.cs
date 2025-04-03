@@ -16,6 +16,8 @@ public class Stat : MonoBehaviour
     protected int _defense;
     [SerializeField]
     protected float _moveSpeed;
+    [SerializeField]
+    protected float _jumpPower; // มกวม force
 
     public int Level { get { return _level; } set { _level = value; } }
     public int Hp { get { return _hp; } set { _hp = value; } }
@@ -23,7 +25,7 @@ public class Stat : MonoBehaviour
     public int Attack { get { return _attack; } set { _attack = value; } }
     public int Defense { get { return _defense; } set { _defense = value; } }
     public float MoveSpeed { get { return _moveSpeed; } set { _moveSpeed = value; } }
-
+    public float JumpPower { get { return _jumpPower; } set { _jumpPower = value; } }
     private void Start()
     {
         _level = 1;
@@ -32,5 +34,6 @@ public class Stat : MonoBehaviour
         _attack = 10;
         _defense = 5;
         _moveSpeed = 5.0f;
+        _jumpPower = 10.0f;
     }
 }

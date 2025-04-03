@@ -20,6 +20,7 @@ public class PlayerStat : Stat
         _attack = 10;
         _defense = 5;
         _moveSpeed = 5.0f;
+        _jumpPower = 10.0f;
         _exp = 0;
         _gold = 0;
     }

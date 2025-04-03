@@ -8,6 +8,13 @@ public class Define
 		Block = 11,
 	}
 
+	public enum CursorType
+	{
+		None,
+		Attack,
+		Hand,
+	}
+
 	public enum Scene
 	{
 		Unknown,
@@ -32,6 +39,8 @@ public class Define
 	public enum MouseEvent
 	{
 		Press,
+		PointerDown,
+        PointerUp,
 		Click,
 	}
 
