@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 6268284467722360844}
   - component: {fileID: 8685231907785081060}
   - component: {fileID: 6942873278426779894}
-  - component: {fileID: 2731463914417887474}
   m_Layer: 0
   m_Name: PicoChan
   m_TagString: Untagged
@@ -68,6 +67,7 @@ MonoBehaviour:
   _attack: 0
   _defense: 0
   _moveSpeed: 0
+  _jumpPower: 0
   _exp: 0
   _gold: 0
 --- !u!143 &6268284467722360844
@@ -144,28 +144,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!195 &2731463914417887474
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2350652681907635850}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 1.5
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!1001 &3101518885914528314
 PrefabInstance:
   m_ObjectHideFlags: 0

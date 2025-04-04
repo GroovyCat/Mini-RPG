@@ -2,7 +2,7 @@ public class Define
 {
 	public enum Layer
 	{
-		Moster = 8,
+		Monster = 8,
 		Player = 9,
 		Ground = 10,
 		Block = 11,
